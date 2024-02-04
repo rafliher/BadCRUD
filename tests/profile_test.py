@@ -14,7 +14,12 @@ class ProfilePictureUploadTestCase(unittest.TestCase):
         except:
             cls.url = "http://localhost"
 
-    def test_1_login_correct_credentials(self):
+    def test(self):
+        self.login_correct_credentials()
+        self.go_to_profile_page()
+        self.upload_profile_picture()
+
+    def login_correct_credentials(self):
         login_url = self.url + '/login.php'
         self.browser.get(login_url)
 
@@ -22,11 +27,11 @@ class ProfilePictureUploadTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, 'inputPassword').send_keys('nimda666!')
         self.browser.find_element(By.TAG_NAME, 'button').click()
 
-    def test_2_go_to_profile_page(self):
+    def go_to_profile_page(self):
         profile_url = self.url + '/profil.php'
         self.browser.get(profile_url)
 
-    def test_3_upload_profile_picture(self):
+    def upload_profile_picture(self):
         file_input = self.browser.find_element(By.ID, 'formFile')
         
         image_path = os.path.join(os.getcwd(), 'tests', 'test_images', 'image.jpg')

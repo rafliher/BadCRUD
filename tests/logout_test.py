@@ -14,7 +14,12 @@ class LogoutTestCase(unittest.TestCase):
         except:
             cls.url = "http://localhost"
 
-    def test_1_login_correct_credentials(self):
+    def test(self):
+        self.login_correct_credentials()
+        self.index_page()
+        self.logout()
+
+    def login_correct_credentials(self):
         login_url = self.url +'/login.php'
         self.browser.get(login_url)
 
@@ -22,12 +27,12 @@ class LogoutTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, 'inputPassword').send_keys('nimda666!')
         self.browser.find_element(By.TAG_NAME, 'button').click()
 
-    def test_2_index_page(self):
+    def index_page(self):
         expected_result = "admin"
         actual_result = self.browser.find_element(By.XPATH, "//h2[contains(text(),'Halo,')]").text.split(', ')[1]
         self.assertIn(expected_result, actual_result)
 
-    def test_3_logout(self):
+    def logout(self):
         self.browser.find_element(By.XPATH, "//a[contains(text(),'Sign out')]").click()
 
         login_page_title = "Login"

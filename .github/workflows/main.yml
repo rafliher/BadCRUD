@@ -18,7 +18,7 @@ jobs:
       - name: Build AUT
         run: docker build -t my-php-site:latest .
 
-      - name: Run Containers with selenium and AUT using docker-compose
+      - name: Run AUT using docker-compose
         run: docker-compose up -d
       
       - name: Get AUT URL
@@ -44,12 +44,6 @@ jobs:
       - name: Run tests using pytest
         run: |
           pytest -v -n 5 tests/
-
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v4
-        with:
-          name: Screenshot
-          path: screenshot.png
 
       - name: stop docker
         run: docker stop docker-apache

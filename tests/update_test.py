@@ -19,7 +19,13 @@ class UpdateContactTestCase(unittest.TestCase):
             cls.url = "http://localhost"
         cls.name_query = ''.join(random.choices(string.ascii_letters, k=10))
 
-    def test_1_login_correct_credentials(self):
+    def test(self):
+        self.login_correct_credentials()
+        self.create_contact()
+        self.update_contact() 
+        self.delete_contact()       
+
+    def login_correct_credentials(self):
         login_url = self.url + '/login.php'
         self.browser.get(login_url)
 
@@ -27,7 +33,7 @@ class UpdateContactTestCase(unittest.TestCase):
         self.browser.find_element(By.ID, 'inputPassword').send_keys('nimda666!')
         self.browser.find_element(By.TAG_NAME, 'button').click()
 
-    def test_2_create_contact(self):
+    def create_contact(self):
         create_url = self.url + '/create.php'
         self.browser.get(create_url)
 
@@ -42,7 +48,7 @@ class UpdateContactTestCase(unittest.TestCase):
         actual_title = self.browser.title
         self.assertEqual(index_page_title, actual_title)
 
-    def test_3_search_contact(self):
+    def update_contact(self):
         search_query = self.name_query
         self.browser.find_element(By.ID, 'employee_filter').find_element(By.TAG_NAME, 'input').send_keys(search_query)
         self.browser.find_element(By.ID, 'employee_filter').find_element(By.TAG_NAME, 'input').send_keys(Keys.ENTER)
@@ -51,7 +57,6 @@ class UpdateContactTestCase(unittest.TestCase):
         searched_contact_exists = self.browser.find_elements(By.XPATH, f"//td[contains(text(), '{searched_contact_name}')]")
         self.assertTrue(searched_contact_exists)
         
-    def test_4_update_contact(self):
         actions_section = self.browser.find_element(By.XPATH, "//tr[@role='row'][1]//td[contains(@class, 'actions')]")
         update_button = actions_section.find_element(By.XPATH, ".//a[contains(@class, 'btn-success')]")
 
@@ -76,7 +81,7 @@ class UpdateContactTestCase(unittest.TestCase):
         updated_contact_exists = self.browser.find_elements(By.XPATH, f"//td[contains(text(), '{new_title}')]")
         self.assertTrue(updated_contact_exists)
 
-    def test_5_delete_contact(self):
+    def delete_contact(self):
         actions_section = self.browser.find_element(By.XPATH, "//tr[@role='row'][1]//td[contains(@class, 'actions')]")
         delete_button = actions_section.find_element(By.XPATH, ".//a[contains(@class, 'btn-danger')]")
 
