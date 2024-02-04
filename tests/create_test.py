@@ -45,6 +45,7 @@ class CreateContactTestCase(unittest.TestCase):
 
     def test_3_search_contact(self):
         time.sleep(3)
+        self.browser.save_screenshot('screenshot.png')
         
         search_query = self.name_query
         self.browser.find_element(By.ID, 'employee_filter').find_element(By.TAG_NAME, 'input').send_keys(search_query)

@@ -31,7 +31,7 @@ jobs:
       
       - name: Selenium Preparation
         run: docker run --network=isolated -d -p 4444:4444 -p 7900:7900 -v /dev/shm:/dev/shm --name firefox-standalone selenium/standalone-firefox:latest
-        
+
       - name: Wait for Selenium Hub
         run: sh wait.sh
 
@@ -43,7 +43,13 @@ jobs:
 
       - name: Run tests using pytest
         run: |
-          pytest -v -n 3 tests/
+          pytest -v -n 5 tests/
+
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Screenshot
+          path: screenshot.png
 
       - name: stop docker
         run: docker stop docker-apache
