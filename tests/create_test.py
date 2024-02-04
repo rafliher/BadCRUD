@@ -2,6 +2,7 @@ import unittest
 import os
 import random
 import string
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -43,6 +44,8 @@ class CreateContactTestCase(unittest.TestCase):
         self.assertEqual(index_page_title, actual_title)
 
     def test_3_search_contact(self):
+        time.sleep(3)
+        
         search_query = self.name_query
         self.browser.find_element(By.ID, 'employee_filter').find_element(By.TAG_NAME, 'input').send_keys(search_query)
         self.browser.find_element(By.ID, 'employee_filter').find_element(By.TAG_NAME, 'input').send_keys(Keys.ENTER)
@@ -58,6 +61,7 @@ class CreateContactTestCase(unittest.TestCase):
         delete_button.click()
 
         self.browser.switch_to.alert.accept()
+        time.sleep(3)
 
         search_query = self.name_query
         self.browser.find_element(By.ID, 'employee_filter').find_element(By.TAG_NAME, 'input').send_keys(search_query)
