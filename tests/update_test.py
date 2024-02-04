@@ -2,6 +2,7 @@ import unittest
 import os
 import random
 import string
+import.time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -89,7 +90,7 @@ class UpdateContactTestCase(unittest.TestCase):
 
         self.browser.switch_to.alert.accept()
 
-        self.browser.implicitly_wait(3)
+        time.sleep(3)
 
         search_query = self.name_query
         self.browser.find_element(By.ID, 'employee_filter').find_element(By.TAG_NAME, 'input').send_keys(search_query)
