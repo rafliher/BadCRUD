@@ -49,7 +49,7 @@ jobs:
         with:
           target: ${{ env.URL }}
           network_name: isolated
-          ZAP_AUTH_HEADER_VALUE: PHPSESSID
+          ZAP_AUTH_HEADER: PHPSESSID
           ZAP_AUTH_HEADER_VALUE: $(cat $GITHUB_WORKSPACE/session_file)
           cmd_options: -z "-config api.addrs.addr.url=https://$GITHUB_WORKSPACE/session_file -config ZAP_AUTH_HEADER=PHPSESSID -config ZAP_AUTH_HEADER_VALUE=$(cat $GITHUB_WORKSPACE/session_file)"
 
