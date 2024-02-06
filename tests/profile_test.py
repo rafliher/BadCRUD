@@ -1,4 +1,4 @@
-import unittest, os
+import unittest, os, hashlib, requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -45,6 +45,17 @@ class ProfilePictureUploadTestCase(unittest.TestCase):
 
         new_profile_picture = self.browser.find_element(By.CSS_SELECTOR, 'img[src="image/profile.jpg"]')
         self.assertIsNotNone(new_profile_picture)
+        
+        image_url = new_profile_picture.get_attribute("src")
+        image_data = requests.get(image_url).content
+
+        hash_value = hashlib.md5(image_data).hexdigest()
+
+        with open(image_path, 'rb') as file:
+            file_data = file.read()
+            expected_hash = hashlib.md5(file_data).hexdigest()
+
+        self.assertEqual(hash_value, expected_hash)
 
     @classmethod
     def tearDownClass(cls):

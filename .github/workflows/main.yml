@@ -18,8 +18,8 @@ jobs:
       - name: Build AUT
         run: docker build -t my-php-site:latest .
 
-      - name: Run AUT using docker-compose
-        run: docker-compose up -d
+      - name: Run AUT and Selenium using docker-compose
+        run: docker-compose up --scale firefox=5 -d 
       
       - name: Get AUT URL
         run: |
@@ -28,9 +28,6 @@ jobs:
 
       - name: Check AUT URL
         run: curl ${{ env.URL }}
-      
-      - name: Selenium Preparation
-        run: docker run --network=isolated -d -p 4444:4444 -p 7900:7900 -v /dev/shm:/dev/shm --name firefox-standalone selenium/standalone-firefox:latest
 
       - name: Wait for Selenium Hub
         run: sh wait.sh
