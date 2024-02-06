@@ -19,7 +19,9 @@ jobs:
         run: docker build -t my-php-site:latest .
 
       - name: Run AUT and Selenium using docker-compose
-        run: docker-compose up --scale firefox=5 -d 
+        run: | 
+          docker-compose -f docker-compose.app.yml up -d 
+          docker-compose -f docker-compose.selenium.yml up --scale firefox=5 -d 
       
       - name: Get AUT URL
         run: |
