@@ -20,7 +20,8 @@ def get_session():
 
         session_cookie = browser.get_cookie("PHPSESSID")["value"]
         
-        os.environ['SESSION_ID'] = session_cookie
+        with open("session_file", "w") as file:
+            file.write(session_cookie)
 
     finally:
         browser.quit()

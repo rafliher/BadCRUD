@@ -49,7 +49,7 @@ jobs:
         with:
           target: ${{ env.URL }}
           network_name: isolated
-          cmd_options: "-config api.addrs.addr.url=${{ env.SESSION_ID }}"
+          cmd_options: -z "-config api.addrs.addr.url=https://$GITHUB_WORKSPACE/session_file"
 
       - name: stop docker
         run: docker stop docker-apache
