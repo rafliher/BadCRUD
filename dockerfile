@@ -11,6 +11,6 @@ RUN apt-get update && \
 
 WORKDIR /var/www/html
 
-COPY ./src ./ && chown -R www-data:www-data /var/www/html
+COPY ./src ./ && chown www-data:www-data /var/www/html -R
 
 EXPOSE 80
